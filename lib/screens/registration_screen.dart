@@ -7,7 +7,7 @@ class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
@@ -32,9 +32,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
-              style: const TextStyle(
-                color: Colors.black,
-              ),
               onChanged: (value) {
                 //Do something with the user input.
               },
@@ -72,10 +69,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             const SizedBox(
               height: 24.0,
             ),
-            RoundedButton(color: Colors.blueAccent,
-                onTap: () {},
-                text: 'Register'),
-
+            RoundedButton(
+                color: Colors.blueAccent, onTap: () {}, text: 'Register'),
           ],
         ),
       ),
