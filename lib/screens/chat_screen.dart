@@ -35,6 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      keyboardType: TextInputType.text,
                       onChanged: (value) {
                         //Do something with the user input.
                       },
