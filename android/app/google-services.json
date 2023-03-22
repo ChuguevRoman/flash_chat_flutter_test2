@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "107969587464",
-    "project_id": "flash-chat-6ab43",
-    "storage_bucket": "flash-chat-6ab43.appspot.com"
+    "project_number": "381985482111",
+    "project_id": "flash-chat-72325",
+    "storage_bucket": "flash-chat-72325.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:107969587464:android:1b7af3931e02dbee7ae4bd",
+        "mobilesdk_app_id": "1:381985482111:android:1ec0af30e23ec29aee664a",
         "android_client_info": {
           "package_name": "com.example.flash_chat_flutter_test2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "107969587464-4kp9evvrca5kl25tvsgarp6etum6i3u5.apps.googleusercontent.com",
+          "client_id": "381985482111-d3od6cl9agtif7qfqeg32giuffubqi72.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCfvp2JcUatM7LrkC3nP2HTx81lscJ9oSg"
+          "current_key": "AIzaSyD_zgVQMgC_ohDACZ2AFp76IbH1sIpJSL8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "107969587464-4kp9evvrca5kl25tvsgarp6etum6i3u5.apps.googleusercontent.com",
+              "client_id": "381985482111-d3od6cl9agtif7qfqeg32giuffubqi72.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
