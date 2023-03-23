@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
-import '../widgets/message_babble.dart';
+import '../widgets/message_stream.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -59,31 +59,9 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('messages').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: null,
-                    );
-                  }
-                  final messages = snapshot.data!.docs;
-                  List<MessageBabble> messageWidgets = [];
-                  for (var message in messages) {
-                    final messageText = message['text'];
-                    final messageSender = message['sender'];
-                    final messageWidget =
-                        MessageBabble(text: messageText, sender: messageSender);
-                    messageWidgets.add(messageWidget);
-                  }
-                  return Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10.0),
-                      children: messageWidgets,
-                    ),
-                  );
-                }),
+            MessageStream(
+              streamSnapshot: _firestore.collection('messages').snapshots(),
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
