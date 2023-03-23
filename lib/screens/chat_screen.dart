@@ -16,6 +16,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _firestore = FirebaseFirestore.instance;
   User? loggedInUser;
   String? messageText;
+  TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -42,14 +43,14 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.close),
+              icon: const Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
                 _auth.signOut();
                 Navigator.pop(context);
               }),
         ],
-        title: Text('⚡️Chat'),
+        title: const Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(
@@ -57,6 +58,31 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('messages').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: null,
+                    );
+                  }
+                  final messages = snapshot.data!.docs;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages) {
+                    final messageText = message['text'];
+                    final messageSender = message['sender'];
+                    final messageWidget = Text(
+                      '$messageText from $messageSender',
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    );
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                }),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -64,6 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: controller,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {
                         //Do something with the user input.
@@ -76,9 +103,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       //Implement send functionality.
                       _firestore.collection('messages').add({
-                        'text' : messageText,
-                        'sender' : loggedInUser?.email,
+                        'text': messageText,
+                        'sender': loggedInUser?.email,
                       });
+                      controller.clear();
                     },
                     child: const Text(
                       'Send',
