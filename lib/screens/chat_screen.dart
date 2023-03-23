@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
+import '../widgets/message_babble.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -67,20 +68,20 @@ class _ChatScreenState extends State<ChatScreen> {
                     );
                   }
                   final messages = snapshot.data!.docs;
-                  List<Text> messageWidgets = [];
+                  List<MessageBabble> messageWidgets = [];
                   for (var message in messages) {
                     final messageText = message['text'];
                     final messageSender = message['sender'];
-                    final messageWidget = Text(
-                      '$messageText from $messageSender',
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                    );
+                    final messageWidget =
+                        MessageBabble(text: messageText, sender: messageSender);
                     messageWidgets.add(messageWidget);
                   }
-                  return Column(
-                    children: messageWidgets,
+                  return Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 10.0),
+                      children: messageWidgets,
+                    ),
                   );
                 }),
             Container(
