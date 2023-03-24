@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class MessageBabble extends StatelessWidget {
   final String text;
   final String sender;
+  bool isMe;
 
-  MessageBabble({required this.text, required this.sender});
+  MessageBabble({required this.isMe, required this.text, required this.sender});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class MessageBabble extends StatelessWidget {
               bottomLeft: Radius.circular(30.0),
               bottomRight: Radius.circular(30.0),
             ),
-            color: Colors.lightBlueAccent,
+            color: isMe ? Colors.lightBlueAccent : Colors.lightGreenAccent,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(

@@ -60,6 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             MessageStream(
+              currentUserName: loggedInUser!.email,
               streamSnapshot: _firestore.collection('messages').snapshots(),
             ),
             Container(

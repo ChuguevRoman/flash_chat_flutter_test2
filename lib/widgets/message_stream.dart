@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import './message_babble.dart';
 
 class MessageStream extends StatelessWidget {
-
   final Stream<QuerySnapshot> streamSnapshot;
+  final String? currentUserName;
 
-  MessageStream({required this.streamSnapshot});
+  MessageStream({required this.currentUserName, required this.streamSnapshot});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +24,18 @@ class MessageStream extends StatelessWidget {
           for (var message in messages) {
             final messageText = message['text'];
             final messageSender = message['sender'];
-            final messageWidget =
-            MessageBabble(text: messageText, sender: messageSender);
+            final currentUser = currentUserName;
+            final messageWidget = MessageBabble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,
+            );
             messageWidgets.add(messageWidget);
           }
           return Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
               children: messageWidgets,
             ),
           );
