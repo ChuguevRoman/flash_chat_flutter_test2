@@ -24,8 +24,12 @@ class MessageBabble extends StatelessWidget {
           ),
           Material(
             elevation: 5.0,
-            borderRadius: const BorderRadius.only(
+            borderRadius: isMe ? const BorderRadius.only(
               topLeft: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0),
+            ) : const BorderRadius.only(
+              topRight: Radius.circular(30.0),
               bottomLeft: Radius.circular(30.0),
               bottomRight: Radius.circular(30.0),
             ),
