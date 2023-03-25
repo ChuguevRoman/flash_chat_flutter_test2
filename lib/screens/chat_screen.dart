@@ -14,7 +14,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+  final firestore = FirebaseFirestore.instance;
   User? loggedInUser;
   String? messageText;
   TextEditingController controller = TextEditingController();
@@ -61,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             MessageStream(
               currentUserName: loggedInUser!.email,
-              streamSnapshot: _firestore.collection('messages').snapshots(),
+              streamSnapshot: firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
             ),
             Container(
               decoration: kMessageContainerDecoration,
@@ -82,9 +82,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   ElevatedButton(
                     onPressed: () {
                       //Implement send functionality.
-                      _firestore.collection('messages').add({
+                      firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser?.email,
+                        'timestamp' : FieldValue.serverTimestamp(),
                       });
                       controller.clear();
                     },
